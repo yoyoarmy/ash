@@ -12,12 +12,11 @@ import { Select, SelectTrigger, SelectValue, SelectContent, SelectItem } from '.
 import { BrandSelect } from '../components/BrandSelect';
 import { LoadingAnimation } from "@/app/components/LoadingAnimation";
 import { RoleGuard } from '../components/RoleGuard';
-import { Store } from '@prisma/client';
+
 
 type Brand = {
   id: number;
   name: string;
-  stores?: Store[];
 };
 
 type Item = {
@@ -28,7 +27,6 @@ type Item = {
   format: string;
   capacity: number;
 };
-
 
 
 type MediaItemType = {
