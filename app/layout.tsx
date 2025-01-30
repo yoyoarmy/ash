@@ -1,5 +1,5 @@
-import '../app/globals.css'
-import { Inter } from 'next/font/google'
+import './globals.css'
+import { Inter } from 'next/font/google';
 import { Navigation } from './components/Navigation'
 import Header from './components/Header'
 import { Providers } from './components/Providers'
