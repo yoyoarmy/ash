@@ -1,5 +1,6 @@
 import * as React from "react"
-import { cn } from "../../../lib/utils"
+import { cn } from '@/app/lib/utils';
+
 
 const variants = {
     default: "bg-primary text-primary-foreground hover:bg-primary/90",
