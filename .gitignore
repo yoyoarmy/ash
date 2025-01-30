@@ -1,0 +1,6 @@
+# Ignore large log files and temporary files
+node_modules/
+.env
+*.log
+*.zip
+*.mp4

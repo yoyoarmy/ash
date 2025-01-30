@@ -1,0 +1,172 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Store {
+  id          Int          @id @default(autoincrement())
+  name        String
+  location    String
+  brandId     Int
+  brand       Brand        @relation(fields: [brandId], references: [id])
+  mediaSpaces MediaSpace[]
+  createdAt   DateTime     @default(now())
+  updatedAt   DateTime     @updatedAt
+}
+
+model MediaSpace {
+  id          Int       @id @default(autoincrement())
+  mediaItemId Int
+  mediaItem   MediaItem @relation(fields: [mediaItemId], references: [id])
+  status      String
+  storeId     Int
+  store       Store     @relation(fields: [storeId], references: [id])
+  leases      Lease[]
+  info        String?
+  photo       String?
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+  Booking     Booking[]
+}
+
+model Advertiser {
+  id        Int       @id @default(autoincrement())
+  name      String
+  email     String    @unique
+  phone     String?
+  bookings  Booking[]
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+}
+
+model Booking {
+  id           Int        @id @default(autoincrement())
+  startDate    DateTime
+  endDate      DateTime
+  status       String // pending, confirmed, cancelled, completed
+  totalPrice   Float
+  mediaSpaceId Int
+  mediaSpace   MediaSpace @relation(fields: [mediaSpaceId], references: [id])
+  advertiserId Int
+  advertiser   Advertiser @relation(fields: [advertiserId], references: [id])
+  createdAt    DateTime   @default(now())
+  updatedAt    DateTime   @updatedAt
+}
+
+model MediaItem {
+  id            Int          @id @default(autoincrement())
+  type          String
+  dimensions    String
+  basePrice     Float
+  leaseDuration Int
+  capacity      Int
+  format        String
+  mediaSpaces   MediaSpace[]
+  mediaItemType MediaItemType @relation(fields: [mediaItemTypeId], references: [id])
+  mediaItemTypeId Int
+  createdAt     DateTime     @default(now())
+  updatedAt     DateTime     @updatedAt
+}
+
+model Brand {
+  id        Int      @id @default(autoincrement())
+  name      String
+  stores    Store[]
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Lease {
+  id              Int      @id @default(autoincrement())
+  mediaSpaceId    Int
+  mediaSpace      MediaSpace @relation(fields: [mediaSpaceId], references: [id])
+  customerName    String
+  startDate       DateTime
+  endDate         DateTime
+  amount          Float
+  statusId        Int
+  status          Status     @relation(fields: [statusId], references: [id])
+  orderId         Int?
+  order           Order?     @relation(fields: [orderId], references: [id])
+  extraInformation LeaseExtraInformation?
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+
+  // Add indexes for better query performance
+  @@index([startDate, endDate])
+  @@index([statusId])
+  @@index([mediaSpaceId])
+}
+
+model User {
+  id            String    @id @default(cuid())
+  name          String?
+  email         String    @unique
+  password      String
+  role          String    @default("USER")  // USER, ADMIN, etc.
+  orders        Order[]
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+}
+
+model LeaseExtraInformation {
+  id                  Int      @id @default(autoincrement())
+  leaseId            Int      @unique
+  lease              Lease    @relation(fields: [leaseId], references: [id])
+  providerInfo       String
+  productDetails     String
+  campaignRedirect   String
+  marketingGoals     String
+  disclaimer         String
+  productUrl         String
+  targetAudience     String
+  brandGraphics      String?
+  providerContact    String
+  billingType        String[]
+  giftCampaignDetails String?
+  planAlaMedida      String?
+  planAlaMedidaAmount Float?
+  createdAt          DateTime @default(now())
+  updatedAt          DateTime @updatedAt
+}
+
+
+model MediaItemType {
+  id        Int      @id @default(autoincrement())
+  name      String
+  mediaItems MediaItem[]
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+
+model Order  {
+  id        Int      @id @default(autoincrement())
+  userId    String
+  user      User     @relation(fields: [userId], references: [id])
+  leases    Lease[]
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  
+  @@index([userId])
+}
+
+model Status {
+  id        Int      @id @default(autoincrement())
+  name      String   @unique
+  leases    Lease[]
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model NotificationSettings {
+  id        Int      @id @default(autoincrement())
+  brandId   Int      @unique
+  email     String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
