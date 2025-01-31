@@ -56,7 +56,7 @@ type Lease = {
 };
 
 type LeaseDetailsModalProps = {
-  lease: Lease;
+  lease: Lease | null;
   isOpen: boolean;
   onClose: () => void;
 };
@@ -95,19 +95,19 @@ export function LeaseDetailsModal({ lease, isOpen, onClose }: LeaseDetailsModalP
               </div>
               <div>
                 <p className="text-sm text-gray-500">Estado</p>
-                <p className="font-medium">{lease.status.name}</p>
+                <p className="font-medium">{lease?.status?.name || 'N/A'}</p>
               </div>
               <div>
                 <p className="text-sm text-gray-500">Numero de Orden</p>
-                <p className="font-medium">{lease.order?.id || '-'}</p>
+                <p className="font-medium">{lease?.order?.id ?? 'N/A'}</p>
               </div>
               <div>
                 <p className="text-sm text-gray-500">Email</p>
-                <p className="font-medium">{lease.order?.user?.email || '-'}</p>
+                <p className="font-medium">{lease?.order?.user?.email ?? 'N/A'}</p>
               </div>
               <div>
                 <p className="text-sm text-gray-500">Procesado por</p>
-                <p className="font-medium">{lease.order?.user?.name || '-'}</p>
+                <p className="font-medium">{lease?.order?.user?.name ?? 'N/A'}</p>
               </div>
             </div>
           </div>
@@ -134,13 +134,13 @@ export function LeaseDetailsModal({ lease, isOpen, onClose }: LeaseDetailsModalP
             <div className="grid grid-cols-2 gap-4">
               <div>
                 <p className="text-sm text-gray-500">Tienda</p>
-                <p>{lease.mediaSpace?.store?.name || 'N/A'}</p>
+                <p>{lease.mediaSpace?.store?.name ?? 'N/A'}</p>
                 <p className="text-sm text-gray-500 mt-2">Ubicación</p>
-                <p>{lease.mediaSpace?.store?.location || 'N/A'}</p>
+                <p>{lease.mediaSpace?.store?.location ?? 'N/A'}</p>
               </div>
               <div>
                 <p className="text-sm text-gray-500">Tipo de Medio</p>
-                <p>{lease.mediaSpace?.mediaItem?.type || 'N/A'}</p>
+                <p>{lease.mediaSpace?.mediaItem?.type ?? 'N/A'}</p>
 
                 {lease.extraInformation?.planAlaMedida ? (
                   <>
@@ -152,7 +152,7 @@ export function LeaseDetailsModal({ lease, isOpen, onClose }: LeaseDetailsModalP
                 ) : (
                   <>
                     <p className="text-sm text-gray-500 mt-2">Dimensiones</p>
-                    <p>{lease.mediaSpace?.mediaItem?.dimensions || 'N/A'}</p>
+                    <p>{lease.mediaSpace?.mediaItem?.dimensions ?? 'N/A'}</p>
                   </>
                 )}
               </div>

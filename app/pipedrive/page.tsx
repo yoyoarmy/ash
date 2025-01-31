@@ -317,6 +317,7 @@ export default function PipedrivePage() {
             ))}
           </div>
         </div>
+        
 
         <LeaseDetailsModal
           lease={selectedLease}

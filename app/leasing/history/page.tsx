@@ -108,7 +108,7 @@ export default function LeaseHistoryPage() {
       }
 
       // Refresh the orders list
-      const updatedOrders = orders.filter(order => order.id !== orderId);
+      const updatedOrders = orders.filter((order: any) => order.id !== orderId);
       setOrders(updatedOrders);
       addNotification('Solicitud eliminada exitosamente');
     } catch (error) {
@@ -155,7 +155,7 @@ export default function LeaseHistoryPage() {
       ) : (
         <div className="space-y-6">
           {filteredOrders.map(order => {
-            const totalAmount = order.leases.reduce((sum, lease) => sum + lease.amount, 0);
+            const totalAmount = order.leases.reduce((sum: number, lease: any) => sum + lease.amount, 0);
             
             return (
               <div key={order.id} className="bg-white rounded-lg shadow p-6">
