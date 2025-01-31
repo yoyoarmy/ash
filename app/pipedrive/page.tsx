@@ -4,7 +4,6 @@ import { useEffect, useState } from 'react';
 import { Card } from '@/app/components/ui/card';
 import { LoadingAnimation } from '@/app/components/LoadingAnimation';
 import { format } from 'date-fns';
-import { es } from 'date-fns/locale';
 import { RoleGuard } from '@/app/components/RoleGuard';
 import { Button } from '@/app/components/ui/button';
 import { LeaseDetailsModal } from '@/app/components/LeaseDetailsModal';
@@ -27,7 +26,7 @@ type Lease = {
   amount: number;
   statusId: number;
   status: { name: string };
-  order: any;
+  order: { id: number; user: { name: string; email: string }; createdAt: string };
   createdAt: string;
   updatedAt: string;
   mediaSpace: {

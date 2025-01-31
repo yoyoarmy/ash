@@ -42,6 +42,8 @@
     "@types/react": "18.3.18",
     "autoprefixer": "^10.4.20",
     "css-loader": "^6.8.1",
+    "eslint": "8.57.1",
+    "eslint-config-next": "15.1.6",
     "postcss": "^8.5.1",
     "prisma": "5.7.1",
     "style-loader": "^3.3.3",

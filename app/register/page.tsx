@@ -50,7 +50,7 @@ export default function RegisterPage() {
       }
 
       router.push('/login?registered=true');
-    } catch (error) {
+    } catch {
       setError('Failed to create account. Please try again.');
     } finally {
       setLoading(false);

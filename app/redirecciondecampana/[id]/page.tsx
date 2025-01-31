@@ -25,8 +25,6 @@ type Lease = {
 };
 
 export default function RedirectPage() {
-  const { data: session } = useSession();
-  const router = useRouter();
   const params = useParams();
   const [lease, setLease] = useState<Lease | null>(null);
   const [loading, setLoading] = useState(true);
