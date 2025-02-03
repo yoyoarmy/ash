@@ -95,7 +95,7 @@ export function LeaseDetailsModal({ lease, isOpen, onClose }: LeaseDetailsModalP
               </div>
               <div>
                 <p className="text-sm text-gray-500">Estado</p>
-                <p className="font-medium">{statusName}</p>
+                <p className="font-medium">{lease.status?.name}</p>
               </div>
               <div>
                 <p className="text-sm text-gray-500">Solicitud #</p>

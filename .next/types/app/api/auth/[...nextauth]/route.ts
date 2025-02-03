@@ -1,4 +1,4 @@
-// File: /Users/yoyo/Desktop/adspace 2/app/api/auth/[...nextauth]/route.ts
+// File: /Users/yoyo/Desktop/ASH WORKING/app/api/auth/[...nextauth]/route.ts
 import * as entry from '../../../../../../app/api/auth/[...nextauth]/route.js'
 import type { NextRequest } from 'next/server.js'
 

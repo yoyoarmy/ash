@@ -40,8 +40,6 @@ type Store = {
 
 type MediaSpace = {
   id: number;
-  status: string;
-  info?: string;
   photo?: string;
   mediaItem: {
     id: number;
@@ -486,7 +484,7 @@ export default function LeasingPage() {
           // Show capacity information to user
           addNotification(
             `Espacio no disponible: ${data.currentLeases}/${data.capacity} espacios ocupados en las fechas seleccionadas`,
-            'error'
+          
           );
           return false;
         }
@@ -497,7 +495,7 @@ export default function LeasingPage() {
       if (data.remainingCapacity > 0) {
         addNotification(
           `Espacio disponible: ${data.remainingCapacity} espacios restantes`,
-          'success'
+        
         );
       }
 
@@ -525,7 +523,7 @@ export default function LeasingPage() {
       const isAvailable = await checkAvailability(
         selectedSpace.id,
         startDate,
-        endDate
+        dateSelection.to
       );
 
       if (!isAvailable) {

@@ -1,4 +1,4 @@
-// File: /Users/yoyo/Desktop/adspace 2/app/dashboard/page.tsx
+// File: /Users/yoyo/Desktop/ASH WORKING/app/dashboard/page.tsx
 import * as entry from '../../../../app/dashboard/page.js'
 import type { ResolvingMetadata, ResolvingViewport } from 'next/dist/lib/metadata/types/metadata-interface.js'
 

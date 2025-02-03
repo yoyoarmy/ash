@@ -41,16 +41,6 @@ export async function PATCH(
       }
     });
 
-    // Create a notification for the lease owner
-    await prisma.notification.create({
-      data: {
-        userId: updatedLease.order.user.id,
-        title: 'Estado de Solicitud Actualizado',
-        message: `La solicitud #${updatedLease.id} ha sido movida a estado: ${updatedLease.status.name}`,
-        read: false
-      }
-    });
-
     return NextResponse.json(updatedLease);
   } catch (error) {
     console.error('Error updating lease status:', error);

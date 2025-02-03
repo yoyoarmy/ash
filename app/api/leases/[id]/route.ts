@@ -34,23 +34,24 @@ export async function DELETE(
         }
       });
 
-      // Check if there are any remaining active leases for this media space
+      // Check if there are any remaining leases for this media space with status not equal to 7
       const remainingLeases = await tx.lease.findMany({
         where: {
           mediaSpaceId: lease.mediaSpaceId,
-          status: {
-            in: ['active', 'pending']
+          NOT: {
+            statusId: 7
           }
         }
       });
 
-      // If no remaining leases, update media space status to available
-      if (remainingLeases.length === 0) {
-        await tx.mediaSpace.update({
-          where: { id: lease.mediaSpaceId },
-          data: { status: 'available' }
-        });
-      }
+      // If no remaining active leases (all are status 7), update media space status to available
+      // Otherwise, mark it as in use
+      await tx.mediaSpace.update({
+        where: { id: lease.mediaSpaceId },
+        data: { 
+          status: remainingLeases.length === 0 ? 'available' : 'in_use' 
+        }
+      });
     });
 
     return NextResponse.json({ message: 'Lease revoked successfully' });

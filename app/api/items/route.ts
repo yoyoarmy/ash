@@ -6,9 +6,11 @@ export async function POST(request: Request) {
     const body = await request.json();
     console.log('Received item data:', body);
 
-    if (!body.type || !body.dimensions || body.basePrice === undefined || body.leaseDuration === undefined) {
+    if (!body.type || !body.dimensions || body.basePrice === undefined || 
+        body.leaseDuration === undefined || body.capacity === undefined || 
+        body.mediaItemTypeId === undefined) {
       return NextResponse.json(
-        { error: 'Missing required fields' },
+        { error: 'Missing required fields: type, dimensions, basePrice, leaseDuration, capacity, mediaItemTypeId' },
         { status: 400 }
       );
     }
@@ -19,7 +21,9 @@ export async function POST(request: Request) {
         dimensions: body.dimensions,
         basePrice: parseFloat(body.basePrice),
         leaseDuration: parseInt(body.leaseDuration),
-        format: body.format
+        format: body.format,
+        capacity: parseInt(body.capacity),
+        mediaItemTypeId: parseInt(body.mediaItemTypeId)
       }
     });
 

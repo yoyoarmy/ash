@@ -11,13 +11,13 @@ export async function POST() {
       where: {
         AND: [
           {
-            status: 'leased'
+            statusId: 2  // leased
           },
           {
             leases: {
               some: {
                 AND: [
-                  { status: 'active' },
+                  { statusId: { not: 7 } },  // Not completed
                   { endDate: { lt: today } }
                 ]
               }
@@ -35,11 +35,11 @@ export async function POST() {
       // Update lease statuses
       prisma.lease.updateMany({
         where: {
-          status: 'active',
+          statusId: { not: 7 },  // Not completed
           endDate: { lt: today }
         },
         data: {
-          status: 'completed'
+          statusId: 7  // Set to completed
         }
       }),
       // Update media space statuses
@@ -50,7 +50,7 @@ export async function POST() {
           }
         },
         data: {
-          status: 'available'
+          statusId: 1  // Set to available
         }
       })
     ]);
@@ -67,4 +67,4 @@ export async function POST() {
       { status: 500 }
     );
   }
-} 
+}         
