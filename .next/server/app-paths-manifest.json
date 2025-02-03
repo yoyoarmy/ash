@@ -1,8 +1,9 @@
 {
   "/api/auth/[...nextauth]/route": "app/api/auth/[...nextauth]/route.js",
   "/dashboard/page": "app/dashboard/page.js",
-  "/page": "app/page.js",
   "/api/orders/route": "app/api/orders/route.js",
-  "/api/media-item-types/stats/route": "app/api/media-item-types/stats/route.js",
-  "/api/media/route": "app/api/media/route.js"
+  "/dashboard/dashboard/page": "app/dashboard/dashboard/page.js",
+  "/api/stores/route": "app/api/stores/route.js",
+  "/api/media-item-types/route": "app/api/media-item-types/route.js",
+  "/api/brands/route": "app/api/brands/route.js"
 }
