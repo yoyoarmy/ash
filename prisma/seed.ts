@@ -16,27 +16,31 @@ async function main() {
   ];
 
   console.log('Creating status types...');
+  
   for (const statusName of statusTypes) {
-    await prisma.status.create({
-      data: {
-        name: statusName,
-      }
+    await prisma.status.upsert({
+      where: { name: statusName },
+      update: {},
+      create: { name: statusName }
     });
   }
 
-  // Get the default status for leases
+  // Ensure status exists before querying
   const defaultStatus = await prisma.status.findUnique({
     where: { name: 'Recibido' }
   });
 
   if (!defaultStatus) {
-    throw new Error('Default status not found');
+    throw new Error('Default status not found after insert.');
   }
 
+  console.log('Status types inserted successfully.');
+
+  // Hash passwords
   const hashedPassword = await bcrypt.hash('mariana', 10);
   const hashedPassword2 = await bcrypt.hash('joseph', 10);
 
-  // Create admin user
+  // Create users
   await prisma.user.upsert({
     where: { email: 'mariana.cordero@cochezycia.com' },
     update: {},
@@ -58,6 +62,8 @@ async function main() {
       role: 'ADVERTISER',
     },
   });
+
+  console.log('Users created successfully.');
 
   // Create brands
   const noveycochez = await prisma.brand.create({

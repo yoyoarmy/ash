@@ -203,9 +203,9 @@ export default function Header() {
                       <>
                         <div className="px-4 py-2 text-sm text-gray-500">
                           Conectado como<br />
-                          <span className="font-medium text-gray-900">
-                            {session.user.email}
-                          </span>
+                          <span className="font-medium text-gray-900 truncate w-full block">
+                          {session.user.email}
+                        </span>
                         </div>
                         <div className="border-t border-gray-100 my-1"></div>
                         <Link
@@ -216,7 +216,7 @@ export default function Header() {
                         </Link>
                         <button
                           onClick={() => signOut()}
-                          className="w-full text-left px-4 py-2 text-sm text-red-600 hover:bg-red-50 rounded-md flex items-center gap-2"
+                          className="w-full text-left px-4 py-2 text-sm text-red-600 hover:bg-red-50 rounded-md flex items-center gap-2 relative z-9999"
                         >
                           <LogOut className="h-4 w-4" />
                           Cerrar Sesión
@@ -232,12 +232,13 @@ export default function Header() {
                         </div>
                         <div className="border-t border-gray-100 my-1"></div>
                         <button
-                          onClick={() => signOut()}
-                          className="w-full text-left px-4 py-2 text-sm text-red-600 hover:bg-red-50 rounded-md flex items-center gap-2"
-                        >
-                          <LogOut className="h-4 w-4" />
-                          Cerrar Sesión
-        </button>
+                        onClick={() => signOut()}
+                        className="w-full text-left px-4 py-2 text-sm text-red-600 hover:bg-red-50 rounded-md flex items-center gap-2 relative z-9999"
+                      >
+                        <LogOut className="h-4 w-4" />
+                        Cerrar Sesión
+                      </button>
+
                       </>
                     ) : (
                       <Link

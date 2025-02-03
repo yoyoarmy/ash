@@ -137,8 +137,8 @@ export default function LeaseHistoryPage() {
     <div className="p-6">
       <h1 className="text-2xl font-bold mb-6">Historial de Solicitudes</h1>
 
-      <div className="relative mb-6">
-        <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" size={20} />
+      <div className="mb-6">
+        <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" size={18} />
         <Input
           type="text"
           placeholder="Buscar por #orden, #lease, cliente, tienda o tipo de medio..."
