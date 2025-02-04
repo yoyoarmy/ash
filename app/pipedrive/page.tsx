@@ -26,21 +26,48 @@ type Lease = {
   endDate: string;
   amount: number;
   statusId: number;
+  status: {
+    name: string;
+  };
   mediaSpace: {
     id: number;
     name: string;
     mediaItem: {
       type: string;
       dimensions: string;
+      mediaItemType?: {
+        id: number;
+      };
     };
     store: {
       name: string;
+      location: string;
     };
+  };
+  order: {
+    id: number;
+    user: {
+      name: string;
+      email: string;
+    };
+    createdAt: string;
   };
   extraInformation: {
     providerInfo: string;
     productDetails: string;
+    campaignRedirect: string;
+    marketingGoals: string;
+    disclaimer: string;
+    productUrl: string;
+    targetAudience: string;
+    brandGraphics: string;
+    providerContact: string;
+    billingType: string[];
+    giftCampaignDetails: string;
+    planAlaMedida: string;
   };
+  createdAt: string;
+  updatedAt: string;
 };
 
 export default function PipedrivePage() {

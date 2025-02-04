@@ -241,7 +241,6 @@ export default function LeaseHistoryPage() {
 
       <LeaseDetailsModal
         lease={selectedLease}
-        orders={selectedOrder}
         isOpen={!!selectedLease}
         onClose={() => setSelectedLease(null)}
       />

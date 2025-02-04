@@ -29,6 +29,9 @@ interface MediaSpace {
     startDate: string;
     endDate: string;
     statusId: number;
+    status: {
+      name: string;
+    };
     customerName: string;
     amount: number;
   }> | undefined;
@@ -727,7 +730,7 @@ export default function StorePage({ params }: { params: { id: string } }) {
                                   <span>Lease #{lease.id}</span>
                                   <span>•</span>
                                   <span className="px-2 py-0.5 rounded-full text-xs bg-amber-100 text-amber-800">
-                                    {lease.statusId !== 7 ? 'N/A' : 'Completado'}
+                                    {lease.status.name}
                                   </span>
                                 </div>
                               </div>

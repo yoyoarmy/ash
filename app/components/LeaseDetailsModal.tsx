@@ -103,7 +103,7 @@ export function LeaseDetailsModal({ lease, isOpen, onClose }: LeaseDetailsModalP
               </div>
               <div>
                 <p className="text-sm text-gray-500">Email</p>
-                <p className="font-medium">{lease.order?.user?.email || '-'}</p>
+                <p className="font-medium truncate">{lease.order?.user?.email || '-'}</p>
               </div>
               <div>
                 <p className="text-sm text-gray-500">Procesado por</p>
