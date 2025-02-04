@@ -118,8 +118,10 @@ export default function DashboardPage() {
       .catch(err => console.error('Failed to fetch media items:', err));
   }, []);
 
+
+  
   const sortStores = (type: string) => {
-    setSortBy(type);
+    setSortBy(type as SortType);
     let sorted = [...stores];
 
     switch (type) {
@@ -236,17 +238,17 @@ export default function DashboardPage() {
     let sorted = [...stores];
     
     switch (sortBy) {
-      case 'product':
+      case 'Product':
         return sorted.sort((a, b) => a.name.localeCompare(b.name));
       
-      case 'available':
+      case 'Available':
         return sorted.sort((a, b) => {
           const aAvailable = a.mediaSpaces.filter(space => space.status === 'available').length;
           const bAvailable = b.mediaSpaces.filter(space => space.status === 'available').length;
           return bAvailable - aAvailable;
         });
       
-      case 'inUse':
+      case 'In Use':
         return sorted.sort((a, b) => {
           // Fix: Count spaces with active leases instead of just non-available spaces
           const aInUse = a.mediaSpaces.filter(space => 
