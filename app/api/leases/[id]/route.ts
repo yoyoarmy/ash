@@ -49,7 +49,7 @@ export async function DELETE(
       await tx.mediaSpace.update({
         where: { id: lease.mediaSpaceId },
         data: { 
-          status: remainingLeases.length === 0 ? 'available' : 'in_use' 
+          status: remainingLeases.length === 0 ? 'available' : 'leased' 
         }
       });
     });

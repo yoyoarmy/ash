@@ -330,7 +330,7 @@ async function updateLeaseStatuses() {
   // Find all active leases that have ended
   const expiredLeases = await prisma.lease.findMany({
     where: {
-      status: 'active',
+      statusId: { not: 7 },
       endDate: {
         lt: now
       }
@@ -346,7 +346,7 @@ async function updateLeaseStatuses() {
         }
       },
       data: {
-        status: 'completed'
+        statusId: 7
       }
     });
   }

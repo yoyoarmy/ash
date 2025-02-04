@@ -19,7 +19,7 @@ export async function GET(
         leases: {
           where: {
             AND: [
-              { status: 'active' },
+              { statusId: { not: 7 } },
               {
                 OR: [
                   // Active leases on selected date
@@ -59,20 +59,20 @@ export async function GET(
     const formattedSpaces = mediaSpaces.map(space => ({
       ...space,
       currentLeases: space.leases.filter(lease => 
-        lease.status === 'active' &&
+        lease.status.id !== 7 &&
         new Date(lease.startDate) <= selectedDate && 
         new Date(lease.endDate) >= selectedDate
       ),
       pastLeases: space.leases.filter(lease => 
-        lease.status === 'active' &&
+        lease.status.id !== 7 &&
         new Date(lease.endDate) < selectedDate
       ),
       upcomingLeases: space.leases.filter(lease => 
-        lease.status === 'active' &&
+        lease.status.id !== 7 &&
         new Date(lease.startDate) > selectedDate
       ),
       status: space.leases.some(lease => 
-        lease.status === 'active' &&
+        lease.status.id !== 7 &&
         new Date(lease.startDate) <= selectedDate && 
         new Date(lease.endDate) >= selectedDate
       ) ? 'leased' : 'available'

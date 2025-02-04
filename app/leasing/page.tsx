@@ -41,6 +41,9 @@ type Store = {
 type MediaSpace = {
   id: number;
   photo?: string;
+  store: {
+    name: string;
+  };
   mediaItem: {
     id: number;
     type: string;
@@ -48,6 +51,9 @@ type MediaSpace = {
     basePrice: number;
     leaseDuration: number;
     capacity?: number;
+    mediaItemType: {
+      id: number;
+    };
   };
   leases: Array<{
     id: number;

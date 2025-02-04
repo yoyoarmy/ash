@@ -11,7 +11,7 @@ export async function POST() {
       where: {
         AND: [
           {
-            statusId: 2  // leased
+            status: 'leased'
           },
           {
             leases: {
@@ -50,7 +50,7 @@ export async function POST() {
           }
         },
         data: {
-          statusId: 1  // Set to available
+          status: 'available'  // Set to available
         }
       })
     ]);

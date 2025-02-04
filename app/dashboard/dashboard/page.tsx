@@ -23,6 +23,7 @@ type Store = {
   brandId: number;
   mediaSpaces: Array<{
     id: number;
+    status: string;
     mediaItemId: number;
     mediaItem: {
       mediaItemType: {
@@ -38,7 +39,7 @@ type Store = {
     leases: Array<{
       startDate: string;
       endDate: string;
-      status: string;
+      statusId: number;
     }>;
   }>;
   stats: {
@@ -143,12 +144,12 @@ export default function DashboardPage() {
         sorted.sort((a, b) => {
           const aInUse = a.mediaSpaces.filter(space => 
             space.leases?.some(lease => 
-              lease.status !== 'Completado' && new Date(lease.endDate) >= new Date()
+              lease.statusId !== 7 && new Date(lease.endDate) >= new Date()
             )
           ).length;
           const bInUse = b.mediaSpaces.filter(space => 
             space.leases?.some(lease => 
-              lease.status !== 'Completado' && new Date(lease.endDate) >= new Date()
+              lease.statusId !== 7 && new Date(lease.endDate) >= new Date()
             )
           ).length;
           return bInUse - aInUse; // Sort descending (most in use first)
@@ -191,11 +192,11 @@ export default function DashboardPage() {
         total: relevantSpaces.length,
         inUse: relevantSpaces.filter(space => 
           space.leases?.some(lease => {
-            if (!dateRange?.from || !dateRange?.to) return lease.status !== 'Completado';
+            if (!dateRange?.from || !dateRange?.to) return lease.statusId !== 7;
             
             const leaseStart = new Date(lease.startDate);
             const leaseEnd = new Date(lease.endDate);
-            return lease.status !== 'Completado' && 
+            return lease.statusId !== 7 && 
               leaseStart <= dateRange.to &&
               leaseEnd >= dateRange.from;
           })
@@ -249,10 +250,10 @@ export default function DashboardPage() {
         return sorted.sort((a, b) => {
           // Fix: Count spaces with active leases instead of just non-available spaces
           const aInUse = a.mediaSpaces.filter(space => 
-            space.leases?.some(lease => lease.status !== 'Completado')
+            space.leases?.some(lease => lease.statusId !== 7)
           ).length;
           const bInUse = b.mediaSpaces.filter(space => 
-            space.leases?.some(lease => lease.status !== 'Completado')
+            space.leases?.some(lease => lease.statusId !== 7)
           ).length;
           return bInUse - aInUse;
         });

@@ -28,9 +28,7 @@ interface MediaSpace {
     id: number;
     startDate: string;
     endDate: string;
-    status: {
-      name: string;
-    };
+    statusId: number;
     customerName: string;
     amount: number;
   }> | undefined;
@@ -142,7 +140,7 @@ export default function StorePage({ params }: { params: { id: string } }) {
 
       // Check if space has any non-completed leases
       const hasActiveLease = space.leases?.some(lease => 
-        lease.status?.name !== 'Completado' && 
+        lease.statusId !== 7 && 
         new Date(lease.endDate) >= new Date()
       );
 
@@ -158,7 +156,7 @@ export default function StorePage({ params }: { params: { id: string } }) {
 
   const activeLeases = store.mediaSpaces.filter(space => 
     space.leases?.some(lease => 
-      lease.status?.name !== 'Completado' && 
+      lease.statusId !== 7 && 
       new Date(lease.endDate) >= new Date()
     ) ?? false
   ).length;
@@ -398,7 +396,7 @@ export default function StorePage({ params }: { params: { id: string } }) {
                           <DialogTrigger asChild>
                             <Button
                               variant="ghost"
-                              size="icon"
+                              size="sm"
                               className="text-gray-400 hover:text-yellow-500"
                               onClick={() => {
                                 setEditingSpaceId(space.id);
@@ -445,7 +443,7 @@ export default function StorePage({ params }: { params: { id: string } }) {
                         </Dialog>
                         <Button
                           variant="ghost"
-                          size="icon"
+                          size="sm"
                           className="text-gray-400 hover:text-red-600"
                           onClick={() => handleRemoveMediaSpace(space.id)}
                         >
@@ -502,7 +500,7 @@ export default function StorePage({ params }: { params: { id: string } }) {
             <DialogTrigger asChild>
               <Button 
                 variant="outline" 
-                size="icon"
+                size="sm"
                 className="bg-white hover:bg-gray-50"
               >
                 <Settings className="h-4 w-4" />
@@ -618,8 +616,8 @@ export default function StorePage({ params }: { params: { id: string } }) {
         <CardContent className="p-6">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             {store.mediaSpaces.map((space) => {
-              const activeLeases = space.activeLeases;
-              const capacity = space.capacity;
+              const activeLeases = space.leases?.filter(lease => lease.statusId !== 7).length || 0;
+              const capacity = space.mediaItem.capacity || 0;
               const availableSpots = Math.max(0, capacity - activeLeases);
               
               return (
@@ -714,7 +712,7 @@ export default function StorePage({ params }: { params: { id: string } }) {
                       </h4>
                       <div className="space-y-3">
                         {space.leases
-                          .filter(lease => lease.status?.name !== 'Completado')
+                          .filter(lease => lease.statusId !== 7)
                           .map((lease, index) => (
                           <div 
                             key={index}
@@ -729,7 +727,7 @@ export default function StorePage({ params }: { params: { id: string } }) {
                                   <span>Lease #{lease.id}</span>
                                   <span>•</span>
                                   <span className="px-2 py-0.5 rounded-full text-xs bg-amber-100 text-amber-800">
-                                    {lease.status?.name || 'N/A'}
+                                    {lease.statusId !== 7 ? 'N/A' : 'Completado'}
                                   </span>
                                 </div>
                               </div>
