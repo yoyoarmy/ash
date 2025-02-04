@@ -12,6 +12,7 @@ import { Select, SelectTrigger, SelectValue, SelectContent, SelectItem } from '.
 import { BrandSelect } from '../components/BrandSelect';
 import { LoadingAnimation } from "@/app/components/LoadingAnimation";
 import { RoleGuard } from '../components/RoleGuard';
+import { Store } from '@prisma/client';
 
 type Item = {
   type: string;
