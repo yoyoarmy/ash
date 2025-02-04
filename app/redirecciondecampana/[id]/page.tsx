@@ -40,7 +40,7 @@ export default function RedirectPage() {
         if (!response.ok) throw new Error('Lease not found');
         const data = await response.json();
         setLease(data);
-        setRedirectUrl(placeholder="Producto que se desea destacar dentro de la marca (Nombre + SKU)")
+        setRedirectUrl("Producto que se desea destacar dentro de la marca (Nombre + SKU)");
       } catch (error) {
         console.error('Error fetching lease:', error);
       } finally {

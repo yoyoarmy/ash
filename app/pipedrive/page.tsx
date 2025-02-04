@@ -221,7 +221,7 @@ export default function PipedrivePage() {
             </Button>
             <Button
               variant="ghost"
-              size="icon"
+              size="sm"
               onClick={() => setShowSettings(true)}
               className="text-gray-400 hover:text-gray-600"
             >
